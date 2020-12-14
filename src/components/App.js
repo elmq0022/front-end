@@ -8,7 +8,7 @@ class App extends React.Component {
   };
 
   constructor() {
-    super()
+    super();
     blog.get("/article").then((response) => {
       console.log(response);
       this.setState({ articles: response.data });

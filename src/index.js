@@ -1,9 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./components/App";
-import 'fontsource-roboto';
+import "fontsource-roboto";
 
-ReactDOM.render(
-    <App />,
-    document.querySelector("#root")
-);
+ReactDOM.render(<App />, document.querySelector("#root"));

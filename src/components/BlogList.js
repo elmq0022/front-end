@@ -5,15 +5,14 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 
-
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
   },
   bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
+    display: "inline-block",
+    margin: "0 2px",
+    transform: "scale(0.8)",
   },
   title: {
     fontSize: 14,
@@ -24,7 +23,7 @@ const useStyles = makeStyles({
 });
 
 const ArticleCard = (props) => {
-  const classes=useStyles();
+  const classes = useStyles();
 
   return (
     <Card className={classes.root} key={props.article.id}>
