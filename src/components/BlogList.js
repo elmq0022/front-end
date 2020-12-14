@@ -23,14 +23,12 @@ const useStyles = makeStyles({
 });
 
 const ArticleCard = (props) => {
-  const classes = useStyles();
-
   return (
-    <Card className={classes.root} key={props.article.id}>
+    <Card key={props.article.id}>
       <CardContent>
         {props.article.title}
         <br />
-        {props.article.body}
+        <div dangerouslySetInnerHTML={{ __html: props.article.post }} />
       </CardContent>
       <CardActions>
         <Button size="small">Continue Reading</Button>
