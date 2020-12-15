@@ -4,6 +4,9 @@ import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
+import "fontsource-roboto";
+import Typography from '@material-ui/core/Typography';
+
 
 const useStyles = makeStyles({
   root: {
@@ -26,7 +29,7 @@ const ArticleCard = (props) => {
   return (
     <Card key={props.article.id}>
       <CardContent>
-        {props.article.title}
+        <Typography>{props.article.title}</Typography>
         <br />
         <div dangerouslySetInnerHTML={{ __html: props.article.post }} />
       </CardContent>

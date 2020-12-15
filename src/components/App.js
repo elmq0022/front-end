@@ -1,6 +1,7 @@
 import React from "react";
 import BlogList from "./BlogList";
 import blog from "../api/blog";
+import "fontsource-roboto";
 
 class App extends React.Component {
   state = {
