@@ -1,55 +1,41 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
+import Paper from "@material-ui/core/Paper";
+import MenuItem from "@material-ui/core/MenuItem";
+import MenuList from "@material-ui/core/MenuList";
+
 import Typography from "@material-ui/core/Typography";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
-    minWidth: 275,
+    display: "flex",
   },
-  bullet: {
-    display: "inline-block",
-    margin: "0 2px",
-    transform: "scale(0.8)",
-  },
-  title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
-  },
-});
+}));
 
-const ArticleCard = (props) => {
+const ArticleMenuItem = (props) => {
   return (
-    <Card>
-      <CardContent>
-        <Typography>{props.article.title}</Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small" onClick={props.onMenuClick}>
-          Read More
-        </Button>
-      </CardActions>
-    </Card>
+    <MenuItem onClick={props.onMenuClick}>
+      <Typography>{props.article.title}</Typography>
+    </MenuItem>
   );
 };
 
-class BlogMenu extends React.Component {
-  render() {
-    const articles = this.props.articles.map((article) => (
-      <ArticleCard
-        article={article}
-        key={article.pk.toString()}
-        onMenuClick={() => this.props.onMenuClick(article.pk)}
-      />
-    ));
+const BlogMenu = (props) => {
+  const classes = useStyles();
 
-    return <div>{articles}</div>;
-  }
-}
+  const articles = props.articles.map((article) => (
+    <ArticleMenuItem
+      article={article}
+      key={article.pk.toString()}
+      onMenuClick={() => props.onMenuClick(article.pk)}
+    />
+  ));
+
+  return (
+    <div className={classes.root}>
+      <MenuList>{articles}</MenuList>
+    </div>
+  );
+};
 
 export default BlogMenu;
