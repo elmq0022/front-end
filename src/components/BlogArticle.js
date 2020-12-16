@@ -1,6 +1,8 @@
 import React from "react";
 
 import Typography from "@material-ui/core/Typography";
+import Container from '@material-ui/core/Container';
+
 
 const BlogArticle = props =>{
   
@@ -8,7 +10,11 @@ const BlogArticle = props =>{
         return <div>Select an Article</div>
     }
     else {
-        return (<Typography dangerouslySetInnerHTML={{ __html: props.article.post }} />)
+        return (
+            <Container>
+                <Typography dangerouslySetInnerHTML={{ __html: props.article.post }} />
+            </Container>
+        )
     }
 }
 
