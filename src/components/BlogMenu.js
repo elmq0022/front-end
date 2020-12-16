@@ -4,9 +4,7 @@ import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
-import "fontsource-roboto";
-import Typography from '@material-ui/core/Typography';
-
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles({
   root: {
@@ -27,31 +25,31 @@ const useStyles = makeStyles({
 
 const ArticleCard = (props) => {
   return (
-    <Card key={props.article.id}>
+    <Card>
       <CardContent>
         <Typography>{props.article.title}</Typography>
-        <br />
-        <div dangerouslySetInnerHTML={{ __html: props.article.post }} />
       </CardContent>
       <CardActions>
-        <Button size="small">Continue Reading</Button>
+        <Button size="small" onClick={props.onMenuClick}>
+          Read More
+        </Button>
       </CardActions>
     </Card>
   );
 };
 
-class BlogList extends React.Component {
+class BlogMenu extends React.Component {
   render() {
     const articles = this.props.articles.map((article) => (
-      <ArticleCard article={article} />
+      <ArticleCard
+        article={article}
+        key={article.pk.toString()}
+        onMenuClick={() => this.props.onMenuClick(article.pk)}
+      />
     ));
 
-    return (
-      <div>
-        <ul>{articles}</ul>
-      </div>
-    );
+    return <div>{articles}</div>;
   }
 }
 
-export default BlogList;
+export default BlogMenu;
