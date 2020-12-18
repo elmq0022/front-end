@@ -9,11 +9,11 @@ const Blog = (props) => {
   return (
     <div>
       <Paper>
-        <Grid container spacing={3}>
+        <Grid container spacing={3} direction="row">
           <Grid item xs={2}>
             <BlogMenu onMenuClick={props.onMenuClick} articles={props.articles} />
           </Grid>
-          <Grid>
+          <Grid item xs={10}>
             <BlogArticle article={props.article} />
           </Grid>
         </Grid>

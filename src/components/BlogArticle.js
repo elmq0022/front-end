@@ -12,6 +12,8 @@ const BlogArticle = props =>{
     else {
         return (
             <Container>
+                <Typography variant="h4" gutterBottom>{props.article.title}</Typography>
+                <Typography variant="subtitle2">First Published: {props.article.published_date}</Typography>
                 <Typography dangerouslySetInnerHTML={{ __html: props.article.post }} />
             </Container>
         )
