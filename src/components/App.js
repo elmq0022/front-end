@@ -8,7 +8,6 @@ import content from "../api/content";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import Typography from "@material-ui/core/Typography";
 
 import "fontsource-roboto";
 
@@ -50,7 +49,7 @@ class App extends React.Component {
       2: "/resume",
     };
 
-    if (0 <= index < 3) {
+    if (0 <= index && index < 3) {
       content.get(urlName[index]).then((response) => {
         this.setState({ content: response.data.content });
       });
@@ -59,16 +58,16 @@ class App extends React.Component {
 
   Section = () => {
     if (this.state.tabIndex < 3) {
-      return (<Content content={this.state.content} />);
+      return <Content content={this.state.content} />;
+    } else {
+      return (
+        <Blog
+          onMenuClick={this.onMenuClick}
+          articles={this.state.articles}
+          article={this.state.currentArticle}
+        />
+      );
     }
-
-    return (
-      <Blog
-        onMenuClick={this.onMenuClick}
-        articles={this.state.articles}
-        article={this.state.currentArticle}
-      />
-    );
   };
 
   render() {
