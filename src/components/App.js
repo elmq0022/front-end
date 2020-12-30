@@ -1,6 +1,9 @@
 import React from "react";
+
 import Blog from "./Blog";
 import blog from "../api/blog";
+
+import HomePage from "../components/HomePage";
 
 import Content from "./Content";
 import content from "../api/content";
@@ -72,8 +75,11 @@ class App extends React.Component {
 
   render() {
     return (
+      
       <div>
-        <AppBar position="static">
+      <HomePage />
+
+        {/* <AppBar position="static">
           <Tabs value={this.state.tabIndex}>
             <Tab label="About" onClick={() => this.onTabClick(0)} />
             <Tab label="Projects" onClick={() => this.onTabClick(1)} />
@@ -81,7 +87,8 @@ class App extends React.Component {
             <Tab label="Blog" onClick={() => this.onTabClick(3)} />
           </Tabs>
         </AppBar>
-        <this.Section />
+        <this.Section /> */}
+      
       </div>
     );
   }
