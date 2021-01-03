@@ -2,33 +2,38 @@ import React from "react";
 
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
 
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
-import { makeStyles } from "@material-ui/core/styles";
+const block = {
+  height: "100%",
+  backgroundColor: "rgb(252, 252, 252)",
+  alignItems: "center",
+};
 
-const DoublePane = (props) => {
+// #f5f5f5 #e8eae3 #373833 #fa2742
+
+const ContentWithImage = (props) => {
   const theme = useTheme();
-  const isSmall = useMediaQuery(theme.breakpoints.down("xs"));
+  const isExtraSmall = useMediaQuery(theme.breakpoints.down("xs"));
   let direction = "row";
 
   if (props.imageSide === "right") {
-    direction = isSmall ? "column" : "row-reverse";
+    direction = isExtraSmall ? "column" : "row-reverse";
   } else if (props.imageSide === "left") {
-    direction = isSmall ? "column" : "row";
+    direction = isExtraSmall ? "column" : "row";
   }
 
   return (
-    <Grid container direction={direction} justify="center" alignItems="center">
+    <Grid container direction={direction} justify="center" spacing={2}>
       <Grid item xs={12} sm={3}>
-        <Container>
-          <img src={props.image} width="100%" height="100%"></img>
-        </Container>
+        <img style={block} src={props.image} width="100%"></img>
       </Grid>
       <Grid item xs={12} sm={9}>
-        <Typography>{props.children}</Typography>
+        <div style={block}>
+          <Typography>{props.children}</Typography>
+        </div>
       </Grid>
     </Grid>
   );
@@ -37,7 +42,7 @@ const DoublePane = (props) => {
 const HomePage = () => {
   return (
     <div>
-      <DoublePane imageSide="left" image="/logo512.png">
+      <ContentWithImage imageSide="left" image="/logo512.png">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
         placerat lobortis libero, ut rutrum nulla malesuada non. Curabitur et
         tincidunt sem, in commodo tortor. Duis fringilla nisi vitae nunc
@@ -51,9 +56,9 @@ const HomePage = () => {
         finibus aliquam. Morbi turpis lorem, feugiat id vestibulum non,
         ultricies vel libero. Aliquam consectetur aliquet lobortis. Suspendisse
         id fringilla lorem.
-      </DoublePane>
+      </ContentWithImage>
 
-      <DoublePane imageSide="right" image="/logo512.png">
+      <ContentWithImage imageSide="right" image="/logo512.png">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
         placerat lobortis libero, ut rutrum nulla malesuada non. Curabitur et
         tincidunt sem, in commodo tortor. Duis fringilla nisi vitae nunc
@@ -67,9 +72,9 @@ const HomePage = () => {
         finibus aliquam. Morbi turpis lorem, feugiat id vestibulum non,
         ultricies vel libero. Aliquam consectetur aliquet lobortis. Suspendisse
         id fringilla lorem.
-      </DoublePane>
+      </ContentWithImage>
 
-      <DoublePane imageSide="left" image="/logo512.png">
+      <ContentWithImage imageSide="left" image="/logo512.png">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
         placerat lobortis libero, ut rutrum nulla malesuada non. Curabitur et
         tincidunt sem, in commodo tortor. Duis fringilla nisi vitae nunc
@@ -83,9 +88,9 @@ const HomePage = () => {
         finibus aliquam. Morbi turpis lorem, feugiat id vestibulum non,
         ultricies vel libero. Aliquam consectetur aliquet lobortis. Suspendisse
         id fringilla lorem.
-      </DoublePane>
+      </ContentWithImage>
 
-      <DoublePane imageSide="right" image="/logo512.png">
+      <ContentWithImage imageSide="right" image="/logo512.png">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
         placerat lobortis libero, ut rutrum nulla malesuada non. Curabitur et
         tincidunt sem, in commodo tortor. Duis fringilla nisi vitae nunc
@@ -99,8 +104,7 @@ const HomePage = () => {
         finibus aliquam. Morbi turpis lorem, feugiat id vestibulum non,
         ultricies vel libero. Aliquam consectetur aliquet lobortis. Suspendisse
         id fringilla lorem.
-      </DoublePane>
-
+      </ContentWithImage>
     </div>
   );
 };

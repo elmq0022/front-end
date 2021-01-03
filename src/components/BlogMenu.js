@@ -4,7 +4,6 @@ import MenuList from "@material-ui/core/MenuList";
 
 import Typography from "@material-ui/core/Typography";
 
-
 const ArticleMenuItem = (props) => {
   return (
     <MenuItem onClick={props.onMenuClick}>
@@ -14,7 +13,6 @@ const ArticleMenuItem = (props) => {
 };
 
 const BlogMenu = (props) => {
-
   const articles = props.articles.map((article) => (
     <ArticleMenuItem
       article={article}
@@ -23,9 +21,7 @@ const BlogMenu = (props) => {
     />
   ));
 
-  return (
-      <MenuList>{articles}</MenuList>
-  );
+  return <MenuList>{articles}</MenuList>;
 };
 
 export default BlogMenu;

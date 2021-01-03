@@ -1,14 +1,18 @@
 import React from "react";
-
-
-import Paper from "@material-ui/core/Paper";
+import { useEffect, useState } from "react";
 import Typography from "@material-ui/core/Typography";
-
+import content from "../api/content";
 
 const Content = (props) => {
-  return (
-    <Typography dangerouslySetInnerHTML={{ __html: props.content }} />
-  );
+  const [html, setHtml] = useState("");
+
+  useEffect(() => {
+    content.get(props.url).then((response) => {
+      setHtml(response.data.content);
+    });
+  }, []);
+
+  return <Typography dangerouslySetInnerHTML={{ __html: html }} />;
 };
 
 export default Content;

@@ -1,95 +1,54 @@
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { ThemeProvider } from "@material-ui/core/styles";
 import React from "react";
 
 import Blog from "./Blog";
-import blog from "../api/blog";
-
+import Content from "./Content";
+import Header from "./Header";
 import HomePage from "../components/HomePage";
 
-import Content from "./Content";
-import content from "../api/content";
-
-import AppBar from "@material-ui/core/AppBar";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-
+import theme from "./Theme";
 import "fontsource-roboto";
 
 class App extends React.Component {
-  state = {
-    articles: [],
-    currentArticle: null,
-    content: "",
-    tabIndex: 0,
-  };
-
-  constructor() {
-    super();
-    blog.get("/article").then((response) => {
-      this.setState({
-        articles: response.data,
-        currentArticle: response.data[0],
-      });
-    });
-
-    content.get("/about").then((response) => {
-      this.setState({ content: response.data.content });
-    });
-  }
-
-  // for blog menu
-  onMenuClick = (pk) => {
-    blog.get("/article/" + pk.toString()).then((response) => {
-      this.setState({ currentArticle: response.data });
-    });
-  };
-
-  onTabClick = (index) => {
-    this.setState({ tabIndex: index });
-
-    const urlName = {
-      0: "/about",
-      1: "/projects",
-      2: "/resume",
-    };
-
-    if (0 <= index && index < 3) {
-      content.get(urlName[index]).then((response) => {
-        this.setState({ content: response.data.content });
-      });
-    }
-  };
-
-  Section = () => {
-    if (this.state.tabIndex < 3) {
-      return <Content content={this.state.content} />;
-    } else {
-      return (
-        <Blog
-          onMenuClick={this.onMenuClick}
-          articles={this.state.articles}
-          article={this.state.currentArticle}
-        />
-      );
-    }
-  };
-
   render() {
     return (
-      
-      <div>
-      <HomePage />
-
-        {/* <AppBar position="static">
-          <Tabs value={this.state.tabIndex}>
-            <Tab label="About" onClick={() => this.onTabClick(0)} />
-            <Tab label="Projects" onClick={() => this.onTabClick(1)} />
-            <Tab label="Resume" onClick={() => this.onTabClick(2)} />
-            <Tab label="Blog" onClick={() => this.onTabClick(3)} />
-          </Tabs>
-        </AppBar>
-        <this.Section /> */}
-      
-      </div>
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
+          <Header></Header>
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route
+              exact
+              path="/about"
+              component={() => {
+                return <Content url="about" />;
+              }}
+            />
+            <Route
+              exact
+              path="/projects"
+              component={() => {
+                return <Content url="projects" />;
+              }}
+            />
+            <Route
+              exact
+              path="/resume"
+              component={() => {
+                return <Content url="resume" />;
+              }}
+            />
+            <Route
+              exact
+              path="/blog"
+              component={() => {
+                return <Blog />;
+              }}
+            />
+          </Switch>
+        </BrowserRouter>
+      </ThemeProvider>
     );
   }
 }
