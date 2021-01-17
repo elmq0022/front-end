@@ -7,11 +7,14 @@ import Tab from "@material-ui/core/Tab";
 import { makeStyles } from "@material-ui/core/styles";
 import { useEffect } from "react";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   toolbarMargin: {
     marginBottom: "5em",
   },
-});
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+  },
+}));
 
 const Header = () => {
   const classes = useStyles();
@@ -37,7 +40,7 @@ const Header = () => {
 
   return (
     <React.Fragment>
-      <AppBar position="fixed">
+      <AppBar position="fixed" className={classes.appBar}>
         <Toolbar disableGutters>
           <Tabs value={value} onChange={handleTabClick}>
             <Tab component={Link} to={"/"} label="Home" />
