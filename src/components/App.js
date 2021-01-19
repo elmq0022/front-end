@@ -3,6 +3,7 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import React from "react";
 
 import Blog from "./Blog";
+import BlogArticle from "./BlogArticle";
 import Content from "./Content";
 import Header from "./Header";
 import HomePage from "../components/HomePage";
