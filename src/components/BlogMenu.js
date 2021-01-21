@@ -1,10 +1,13 @@
 import React from "react";
+
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
-
 import Typography from "@material-ui/core/Typography";
-import xyx from "@material-ui/core/TextField";
 import TextField from "@material-ui/core/TextField";
+
+import Accordian from "@material-ui/core/Accordion";
+import AccordianDetails from "@material-ui/core/AccordionDetails";
+import AccordianSummary from "@material-ui/core/AccordionSummary";
 
 const ArticleMenuItem = (props) => {
   return (
@@ -36,12 +39,18 @@ const BlogMenu = (props) => {
 
   return (
     <React.Fragment>
-      <form>
-        <TextField variant="outlined" label="search"></TextField>
-      </form>
-      <Typography>Tags</Typography>
-      <MenuList>{articleTags}</MenuList>
-      <Typography>Dates</Typography>
+      <MenuItem>
+        <form>
+          <TextField variant="outlined" label="search"></TextField>
+        </form>
+      </MenuItem>
+      <Accordian elevation={0}>
+        <AccordianSummary>Tags</AccordianSummary>
+        <AccordianDetails>
+          <MenuList>{articleTags}</MenuList>
+        </AccordianDetails>
+      </Accordian>
+      <MenuItem>Dates</MenuItem>
     </React.Fragment>
   );
 };

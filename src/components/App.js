@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/core/styles";
 import React from "react";
+import Container from "@material-ui/core/Container";
 
 import Blog from "./Blog";
 import BlogArticle from "./BlogArticle";
@@ -15,40 +16,38 @@ class App extends React.Component {
   render() {
     return (
       <ThemeProvider theme={theme}>
-        <BrowserRouter>
-          <Header></Header>
-          <Switch>
-            <Route exact path="/" component={HomePage} />
-            <Route
-              exact
-              path="/about"
-              component={() => {
-                return <Content url="about" />;
-              }}
-            />
-            <Route
-              exact
-              path="/projects"
-              component={() => {
-                return <Content url="projects" />;
-              }}
-            />
-            <Route
-              exact
-              path="/resume"
-              component={() => {
-                return <Content url="resume" />;
-              }}
-            />
-            <Route
-              exact
-              path="/blog"
-              component={() => {
-                return <Blog />;
-              }}
-            />
-          </Switch>
-        </BrowserRouter>
+        <Container>
+          <BrowserRouter>
+            <Header></Header>
+            <Switch>
+              <Route exact path="/" component={HomePage} />
+              <Route
+                exact
+                path="/about"
+                component={() => {
+                  return <Content url="about" />;
+                }}
+              />
+              <Route
+                exact
+                path="/projects"
+                component={() => {
+                  return <Content url="projects" />;
+                }}
+              />
+              <Route
+                exact
+                path="/resume"
+                component={() => {
+                  return <Content url="resume" />;
+                }}
+              />
+              <Route path="/blog">
+                <Blog />
+              </Route>
+            </Switch>
+          </BrowserRouter>
+        </Container>
       </ThemeProvider>
     );
   }

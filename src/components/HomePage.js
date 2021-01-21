@@ -2,13 +2,14 @@ import React from "react";
 
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
+import Divider from "@material-ui/core/Divider";
 
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const block = {
   height: "100%",
-  backgroundColor: "rgb(252, 252, 252)",
+  background: "rgb(240, 240, 2)",
   alignItems: "center",
 };
 
@@ -26,12 +27,12 @@ const ContentWithImage = (props) => {
   }
 
   return (
-    <Grid container direction={direction} justify="center" spacing={2}>
+    <Grid container direction={direction} justify="center" spacing={3}>
       <Grid item xs={12} sm={3}>
-        <img style={block} src={props.image} width="100%"></img>
+        <img src={props.image} width="100%"></img>
       </Grid>
       <Grid item xs={12} sm={9}>
-        <div style={block}>
+        <div>
           <Typography>{props.children}</Typography>
         </div>
       </Grid>

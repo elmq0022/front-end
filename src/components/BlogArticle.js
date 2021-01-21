@@ -1,21 +1,33 @@
 import React from "react";
+import { useEffect, useState } from "react";
+import blog from "../api/blog";
 
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 
 const BlogArticle = (props) => {
-  if (props.article === null) {
-    return <div>Select an Article</div>;
+  console.log(props);
+
+  const [article, setArticle] = useState(null);
+
+  useEffect(() => {
+    blog.get("/articles/" + props.pk).then((response) => {
+      setArticle(response.data);
+    });
+  }, []);
+
+  if (article === null) {
+    return <div>Loading</div>;
   } else {
     return (
       <Container>
         <Typography variant="h4" gutterBottom>
-          {props.article.title}
+          {article.title}
         </Typography>
         <Typography variant="subtitle2">
-          First Published: {props.article.published_date}
+          First Published: {article.published_date}
         </Typography>
-        <Typography dangerouslySetInnerHTML={{ __html: props.article.post }} />
+        <Typography dangerouslySetInnerHTML={{ __html: article.post }} />
       </Container>
     );
   }

@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Route, Switch, useRouteMatch, useParams } from "react-router-dom";
 import BlogMenu from "./BlogMenu";
 import BlogArticles from "./BlogArticles";
 import { useEffect, useState } from "react";
@@ -12,21 +12,13 @@ import Hidden from "@material-ui/core/Hidden";
 import BlogArticle from "./BlogArticle";
 
 const Blog = () => {
-  const [currentArticle, setCurrentArticle] = useState("");
   const [featuredArticles, setFeaturedArticles] = useState([]);
   const [articles, setArticles] = useState([]);
   const [tags, setTags] = useState([]);
 
-  const onMenuClick = (pk) => {
-    blog.get("/articles/" + pk.toString()).then((response) => {
-      setCurrentArticle(response.data);
-    });
-  };
-
   useEffect(() => {
     blog.get("/articles/").then((response) => {
       setArticles(response.data.results);
-      setCurrentArticle(response.data.results[0]);
     });
 
     blog.get("/articles/?featured=true").then((response) => {
@@ -38,7 +30,7 @@ const Blog = () => {
     });
   }, []);
 
-  const drawerWidth = 280;
+  const drawerWidth = 175;
   const useStyles = makeStyles((theme) => ({
     root: {
       display: "flex",
@@ -61,6 +53,13 @@ const Blog = () => {
 
   const classes = useStyles();
 
+  let { path, url } = useRouteMatch();
+
+  const Article = () => {
+    let { pk } = useParams();
+    return <BlogArticle pk={pk} />;
+  };
+
   return (
     <div className={classes.root}>
       <Hidden smDown>
@@ -72,39 +71,23 @@ const Blog = () => {
           }}
         >
           <Toolbar />
-          <BlogMenu onMenuClick={onMenuClick} articles={articles} tags={tags} />
+          <BlogMenu articles={articles} tags={tags} />
         </Drawer>
       </Hidden>
 
-      <main className={classes.content}>
-        <BrowserRouter>
-          <Switch>
-            <Route
-              exact
-              path="/blog"
-              component={() => {
-                return (
-                  <BlogArticles
-                    featuredArticles={featuredArticles}
-                    articles={articles}
-                    url="/blog"
-                  />
-                );
-              }}
+      <Switch>
+        <Route exact path={path}>
+          <main className={classes.content}>
+            <BlogArticles
+              featuredArticles={featuredArticles}
+              articles={articles}
             />
-            <Route
-              exact
-              path="/blog/article"
-              component={() => {
-                return <BlogArticle article={currentArticle}></BlogArticle>;
-              }}
-            />
-          </Switch>
-        </BrowserRouter>
-
-        {/* <BlogArticles featuredArticles={featuredArticles} articles={articles} />
-        <BlogArticle article={currentArticle}></BlogArticle> */}
-      </main>
+          </main>
+        </Route>
+        <Route path={`${path}/article/:pk`}>
+          <Article />
+        </Route>
+      </Switch>
     </div>
   );
 };

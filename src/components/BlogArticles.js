@@ -1,7 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -20,7 +20,9 @@ const ArticleCard = (props) => {
           />
         </CardContent>
         <CardActionArea>
-          <Button>Read</Button>
+          <Link to={"/blog/article/" + props.pk}>
+            <Button>Read</Button>
+          </Link>
         </CardActionArea>
       </Card>
     </Grid>
@@ -28,11 +30,12 @@ const ArticleCard = (props) => {
 };
 
 const BlogArticles = (props) => {
-  const featuredArticles = props.articles.map((article) => {
+  const featuredArticles = props.featuredArticles.map((article) => {
     return (
       <ArticleCard
         title={article.title}
         shortDescription={article.short_description}
+        pk={article.pk}
       />
     );
   });
@@ -42,16 +45,21 @@ const BlogArticles = (props) => {
       <ArticleCard
         title={article.title}
         shortDescription={article.short_description}
+        pk={article.pk}
       />
     );
   });
 
   return (
     <React.Fragment>
-      <Typography variant="h4">Featured Post</Typography>
-      {featuredArticles}
-      <Typography variant="h4">Recent Post</Typography>
       <Grid container spacing={4}>
+        <Typography gutterBottom variant="h4">
+          Featured Articles
+        </Typography>
+        {featuredArticles}
+        <Typography gutterBottom variant="h4">
+          Recent Articles
+        </Typography>
         {articles}
       </Grid>
     </React.Fragment>
