@@ -99,21 +99,21 @@ const Blog = () => {
 
   return (
     <div className={classes.root}>
-      <Hidden smDown>
-        <Drawer
-          className={classes.drawer}
-          variant="permanent"
-          classes={{
-            paper: classes.drawerPaper,
-          }}
-        >
-          <Toolbar />
-          <BlogMenu tags={tags} handleTagChange={handleTagChange} />
-        </Drawer>
-      </Hidden>
-
       <Switch>
         <Route exact path={path}>
+          <Hidden smDown>
+            <Drawer
+              className={classes.drawer}
+              variant="permanent"
+              classes={{
+                paper: classes.drawerPaper,
+              }}
+            >
+              <Toolbar />
+              <BlogMenu tags={tags} handleTagChange={handleTagChange} />
+            </Drawer>
+          </Hidden>
+
           <main className={classes.content}>
             <BlogArticles
               featuredArticles={featuredArticles}
