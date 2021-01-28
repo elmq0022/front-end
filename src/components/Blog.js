@@ -21,12 +21,18 @@ const Blog = () => {
       setArticles(response.data.results);
     });
 
-    blog.get("/articles/?featured=true").then((response) => {
-      setFeaturedArticles(response.data.results);
-    });
+    blog
+      .get("/articles/", { params: { featured: "true" } })
+      .then((response) => {
+        setFeaturedArticles(response.data.results);
+      });
 
     blog.get("/tags/").then((response) => {
-      setTags(response.data);
+      let t = response.data.map((d) => {
+        d["checked"] = false;
+        return d;
+      });
+      setTags(t);
     });
   }, []);
 
@@ -60,6 +66,37 @@ const Blog = () => {
     return <BlogArticle pk={pk} />;
   };
 
+  const handleTagChange = (event, id) => {
+    let t = tags.map((x) => {
+      if (x.pk === id) {
+        x.checked = event.target.checked;
+        return x;
+      } else {
+        return x;
+      }
+    });
+    setTags(t);
+    updateArticles();
+  };
+
+  const updateArticles = () => {
+    let params = {};
+
+    let selectedTags = tags
+      .filter((t) => {
+        return t.checked;
+      })
+      .map((t) => t.pk)
+      .join();
+
+    if (selectedTags) {
+      params["tags"] = selectedTags;
+    }
+    blog.get("/articles/", { params: params }).then((response) => {
+      setArticles(response.data.results);
+    });
+  };
+
   return (
     <div className={classes.root}>
       <Hidden smDown>
@@ -71,7 +108,7 @@ const Blog = () => {
           }}
         >
           <Toolbar />
-          <BlogMenu articles={articles} tags={tags} />
+          <BlogMenu tags={tags} handleTagChange={handleTagChange} />
         </Drawer>
       </Hidden>
 
