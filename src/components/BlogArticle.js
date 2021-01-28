@@ -6,8 +6,6 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 
 const BlogArticle = (props) => {
-  console.log(props);
-
   const [article, setArticle] = useState(null);
 
   useEffect(() => {

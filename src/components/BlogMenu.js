@@ -11,19 +11,6 @@ import Accordian from "@material-ui/core/Accordion";
 import AccordianDetails from "@material-ui/core/AccordionDetails";
 import AccordianSummary from "@material-ui/core/AccordionSummary";
 
-// const ArticleMenuItem = (props) => {
-//   return (
-//     <MenuItem onClick={props.onMenuClick}>
-//       <Typography noWrap>{props.article.title}</Typography>
-//     </MenuItem>
-//   );
-// };
-
-// const handleChange = (event) => {
-//   console.log(event.target);
-//   console.log(event.target.checked);
-// };
-
 const ArticleTag = (props) => {
   return (
     <MenuItem>
