@@ -10,6 +10,26 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Accordian from "@material-ui/core/Accordion";
 import AccordianDetails from "@material-ui/core/AccordionDetails";
 import AccordianSummary from "@material-ui/core/AccordionSummary";
+import { CenterFocusStrongOutlined } from "@material-ui/icons";
+
+const SearchBar = (props) => {
+  return (
+    <form
+      noValidate
+      autoComplete="off"
+      onSubmit={(e) => {
+        props.handleSearchSubmit(e);
+      }}
+    >
+      <TextField
+        label="Search"
+        variant="outlined"
+        value={props.value}
+        onChange={(e) => props.handleSearchChange(e)}
+      />
+    </form>
+  );
+};
 
 const ArticleTag = (props) => {
   return (
@@ -48,9 +68,10 @@ const BlogMenu = (props) => {
   return (
     <React.Fragment>
       <MenuItem>
-        <form>
-          <TextField variant="outlined" label="search"></TextField>
-        </form>
+        <SearchBar
+          handleSearchChange={props.handleSearchChange}
+          handleSearchSubmit={props.handleSearchSubmit}
+        />
       </MenuItem>
       <Accordian elevation={0}>
         <AccordianSummary>Tags</AccordianSummary>

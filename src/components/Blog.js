@@ -15,6 +15,7 @@ const Blog = () => {
   const [featuredArticles, setFeaturedArticles] = useState([]);
   const [articles, setArticles] = useState([]);
   const [tags, setTags] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     blog.get("/articles/").then((response) => {
@@ -79,6 +80,15 @@ const Blog = () => {
     updateArticles();
   };
 
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    updateArticles();
+  };
+
   const updateArticles = () => {
     let params = {};
 
@@ -92,6 +102,11 @@ const Blog = () => {
     if (selectedTags) {
       params["tags"] = selectedTags;
     }
+
+    if (searchTerm) {
+      params["search"] = searchTerm;
+    }
+
     blog.get("/articles/", { params: params }).then((response) => {
       setArticles(response.data.results);
     });
@@ -110,7 +125,12 @@ const Blog = () => {
               }}
             >
               <Toolbar />
-              <BlogMenu tags={tags} handleTagChange={handleTagChange} />
+              <BlogMenu
+                tags={tags}
+                handleTagChange={handleTagChange}
+                handleSearchChange={handleSearchChange}
+                handleSearchSubmit={handleSearchSubmit}
+              />
             </Drawer>
           </Hidden>
 
